@@ -11,6 +11,7 @@ export const AgregarPlato = () => {
       <div>AgregarPlato</div>
       <h1>Plato</h1>
       <h2></h2>
+      <h3></h3>
     </>
   );
 };
