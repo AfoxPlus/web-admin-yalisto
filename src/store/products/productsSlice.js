@@ -32,8 +32,12 @@ export const productsSlice = createSlice({
             state.isLoadingProducts = false;
             state.products = [];
             state.activeProduct = null;
+        },
+        onRemoveProduct: (state, {payload}) => {
+            var itemIndex = state.products.findIndex(x => x.code == payload.code)
+            state.products.splice(itemIndex, 1)
         }
     }
 });
 
-export const { onLoadProducts, onLogoutProducts, onCreateProduct,onUpdateProduct, onSetActiveProduct } = productsSlice.actions;
+export const { onLoadProducts, onLogoutProducts, onCreateProduct,onUpdateProduct, onSetActiveProduct ,onRemoveProduct} = productsSlice.actions;

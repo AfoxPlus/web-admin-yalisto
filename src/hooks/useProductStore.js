@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import { yaListoGateway } from '../../api/yaListoAPI'
-import { onCreateProduct, onUpdateProduct, onLoadProducts, onSetActiveProduct } from "../store/products/productsSlice";
+import { onCreateProduct, onUpdateProduct, onLoadProducts, onSetActiveProduct,onRemoveProduct } from "../store/products/productsSlice";
 
 export const useProductStore = () => {
     const { products, activeProduct } = useSelector(state => state.products);
@@ -8,6 +8,17 @@ export const useProductStore = () => {
 
     const setActiveProduct = (product) => {
         dispatch(onSetActiveProduct(product))
+    }
+
+    const handleRemoveProduct = async (producCode) => {
+        try {
+            const {data} = await yaListoGateway.delete('products/'+producCode)
+           if(data.success) {
+            dispatch(onRemoveProduct(data.payload))
+           }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     const startLoadingProducts = async() => {
@@ -46,7 +57,8 @@ export const useProductStore = () => {
         startLoadingProducts,
         startCreateProduct,
         startUpdateProduct,
-        setActiveProduct
+        setActiveProduct,
+        handleRemoveProduct
     }
 
 }
