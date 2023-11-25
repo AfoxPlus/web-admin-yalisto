@@ -20,7 +20,12 @@ export const productsSlice = createSlice({
             });
         },
         onCreateProduct: (state, {payload}) => {
-            state.products.push(payload);
+            state.products.push(payload)
+            state.activeProduct = null;
+        },
+        onUpdateProduct: (state, {payload}) => {
+            var itemIndex = state.products.findIndex(x => x.code == payload.code)
+            state.products[itemIndex] = {...payload}
             state.activeProduct = null;
         },
         onLogoutProducts: (state) => {
@@ -31,4 +36,4 @@ export const productsSlice = createSlice({
     }
 });
 
-export const { onLoadProducts, onLogoutProducts, onCreateProduct, onSetActiveProduct } = productsSlice.actions;
+export const { onLoadProducts, onLogoutProducts, onCreateProduct,onUpdateProduct, onSetActiveProduct } = productsSlice.actions;
